@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Vistaar - First B2B Marketplace in Nepal {% endblock %}
+
+{% block content %}
+
+  <!-- Banner -->
+  <div class="container-fluid banner">
+    <div class="owl-carousel owl-theme">
+      <div> <img class="img-fluid" src="{% static "image/new_banner-1.png" %}" alt=""> </div>
+      <div> <img class="img-fluid" src="{% static "image/new_banner-2.png" %}" alt=""> </div>
+      <div> <img class="img-fluid" src="{% static "image/new_banner-3.png" %}" alt=""> </div>
+      <div> <img class="img-fluid" src="{% static "image/new_banner-4.png" %}" alt=""> </div>
+    </div>
+  </div>
+  <!-- Trending Products -->
+  <div class="py-5 trending">
+    <div class="container py-2 shadow rounded">
+      <div class="d-flex justify-content-between border-bottom border-2 border-primary">
+        <h1 class="fs-4">Trending <span class="text-success">Product</span> </h1>
+        <a href="" class="text-decoration-none">View All</a>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-3">
+          <div class="card">
+            <div class="card-body p-1 text-center">
+              <img class="img-fluid" src="{% static 'image/product-1.png' %}" width=%" alt="">
+              <p class="my-0">Healthcare Medical</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <div class="py-3 Recomanded">
+    <div class="container">
+      <div class="border-bottom border-2 my-3">
+        <a href="" class="btn btn-sm btn-success px-3" style="border-radius: 0 15px 0 0;">Featured Products</a>
+      </div>
+      
+      <div class="row">
+        {% for p in products %}
+        {% if p.featured %}
+        <div class="col-sm-3 col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <img class="img-fluid" src="{{ p.image.url }}" alt="">
+            </div>
+            <div class="card-footer">
+              <a href="{{ p.get_absolute_url }}">
+                <h1 class="fs-6 mb-0 text-dark">{{ p.product_name }}</h1>
+              </a>
+              <p><a href="{{ p.get_absolute_url }}">Rs. {{ p.price }}</a></p>
+              <p><a href="#">Supplied by : {{ p.supplier }}</a></p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Demostration -->
+  <div class="py-3">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="fs-3">Demo video</h1>
+      </div>
+      <div class="shadow p-3 rounded">
+        <div class="row d-flex align-items-center">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-7">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/z9EV5PG2_lA"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+          <div class="col-md-5">
+            <img class="img-fluid" src="{% static 'image/banner-2.png' %}" alt="">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Products Near You -->
+
+  <div class="py-3 product">
+    <div class="container">
+      <div class="border-bottom border-2 mb-5">
+        <a href="" class="btn btn-success btn-sm px-3" style="border-radius: 0 15px 0 0;">Products Near You</a>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-4">
+          <a href="">
+            <div class="card">
+              <div class="card-body">
+                <img class="img-fluid" src="{% static 'image/product-1.png' %}" alt="">
+              </div>
+              <div class="card-footer">
+                <a href="#" class="">
+                  <h1 class="fs-6">Coworking Workspace</h1>
+                </a>
+                <a href=""><i class="fas fa-map-marker-alt"></i> Dharan-9, Nepal</a>
+                <p>
+                  <img src="{% static 'image/icon/start-filled.svg' %}" alt="">
+                  <img src="{% static 'image/icon/start-filled.svg' %}" alt="">
+                  <img src="{% static 'image/icon/start-filled.svg' %}" alt="">
+                  <img src="{% static 'image/icon/start-filled.svg' %}" alt="">
+                  <img src="{% static 'image/icon/star-grey.svg' %}" alt="">
+                  <span class="badge bg-secondary rounded-pill">4.5</span>
+                </p>
+                <div class="d-flex justify-content-between">
+                  <div class="text-center">
+                    <span class="text-secondary">Monthly</span>
+                    <p>3500$</p>
+                  </div>
+                  <div class="text-center">
+                    <span class="text-secondary">Sq.ft</span>
+                    <p>1500$</p>
+                  </div>
+                  <div class="text-center">
+                    <span class="text-secondary">Pices</span>
+                    <p>15</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

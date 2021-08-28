@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} {{ product.name }} {% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3>Submit your Product</h3>
+    <p></p>
+
+    <form method="post" enctype="multipart/form-data">
+        {{ submit_product_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="SUBMIT"></p>
+    </form>
+</div>
+
+{% endblock %}

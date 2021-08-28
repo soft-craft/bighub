@@ -1,0 +1,74 @@
+.dashboard .dashboard-item a li {
+    border-top: none;
+    border: none;
+}
+
+.dashboard .dashboard-item a:nth-child(1) li {
+    border-top: 1px solid lightgray;
+}
+
+.dashboard .dashboard-item a:hover li {
+    color: seagreen;
+    border-left: 1px solid seagreen;
+    background: whitesmoke;
+}
+.overflow-x {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+@media only screen and (max-width:1024px) {
+    .col-2 {
+        padding: 2px 5px;
+    }
+
+    .dashboard .company,
+    .dashboard .profile-name a h6 {
+        font-size: 9px;
+    }
+
+    .dashboard .company-name {
+        width: 90px;
+    }
+
+    .dashboard .dashboard-item {
+        padding: 0;
+    }
+
+    .dashboard .dashboard-item a {
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .dashboard .dashboard-item a li {
+        border: none;
+        border-radius: 0 0 0 5px;
+        border-bottom: 1px solid lightseagreen;
+        border-left: 1px solid lightseagreen;
+        margin: 5px 0;
+    }
+
+    .dashboard .dashboard-item a:nth-child(1) li {
+        border-top: none;
+    }
+
+    .dashboard .dashboard-item a:hover li,
+    .dashboard .dashboard-item a:hover li {
+        color: green;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .dashboard .dashboard-item a {
+        font-size: 9px;
+    }
+    .dashboard .company-name {
+        width: 100%;
+    }
+}
+@media only screen and (max-width:300px) {
+    .dashboard .dashboard-item a {
+        font-size: 7px;
+    }
+}

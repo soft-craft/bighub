@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Retailer Verification{% endblock %}
+{% block content %}
+
+<h1>Verify your supplier account</h1>
+<p>Please, enter the details of your company:</p>
+<form method="post">
+    {{ supplier_form.as_p }}
+    {% csrf_token %}
+<p><input type="submit" value="Verify"></p>
+</form>
+
+
+{% endblock %}
