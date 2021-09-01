@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.shortcuts import get_object_or_404
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -11,21 +13,36 @@ from suppliers.models import Supplier
 
 def register(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            # Create a new user object but avoid saving it yet
-            new_user = user_form.save(commit=False)
-            # Set the chosen password
-            new_user.set_password(user_form.cleaned_data['password'])
-            # Save the User object
-            new_user.save()
-            # Create the user profile
-            Profile.objects.create(user=new_user)
+        first_name = request.POST['first_name']
+        last_name  = request.POST['last_name']
+        username  = request.POST['username']
+        email  = request.POST['email']
+        password  = request.POST['password']
+        confirm_password  = request.POST['confirm_password']
 
-            return render(request, 'account/register_done.html',{'new_user': new_user})
+        if password == confirm_password:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username is already taken. Try a different one!')
+                return redirect('register')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already registered!')
+                return redirect('register')
+            else:
+                user = User.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    username=username,
+                    email=email,
+                    password=password
+                )
+                user.save()
+                messages.success(request, 'Your account has been created. Login to continue!')
+                return redirect('login')
+        else:
+            messages.error(request, 'Password fields do not match!')
+            return redirect('register')
     else:
-        user_form = UserRegistrationForm()
-    return render(request,'account/register.html',{'user_form': user_form})
+        return render(request,'account/register.html')
     
 
 def user_login(request):
@@ -51,7 +68,10 @@ def user_login(request):
 @login_required
 def dashboard(request):
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     latest_buyleads = Primary_leads.objects.filter(seller = current_supplier)[:3]
     all_buyleads_count = Primary_leads.objects.filter(seller=current_supplier).count()
@@ -62,14 +82,18 @@ def dashboard(request):
     print(request.get_full_path())
     return render(request,
                 'dashboard/dashboard.html',
-                {'section': 'dashboard','current_profile': current_profile,'current_supplier':current_supplier,'leads':latest_buyleads,'leads_count':all_buyleads_count, 'mboxes':latest_mbox,'mboxes_count':all_mbox_count})
+                {'section': 'dashboard','current_profile': current_profile,
+                'current_supplier':current_supplier,'leads':latest_buyleads,'leads_count':all_buyleads_count, 'mboxes':latest_mbox,'mboxes_count':all_mbox_count})
 
 
 @login_required
 def company_profile(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/company_profile.html',
@@ -79,7 +103,10 @@ def company_profile(request):
 def lead_manager(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     sent_messages = Lead_messages.objects.filter()
 
@@ -91,7 +118,10 @@ def lead_manager(request):
 def manage_products(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/manage_products.html',
@@ -101,7 +131,10 @@ def manage_products(request):
 def buy_leads(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/buy_leads.html',
@@ -112,7 +145,10 @@ def buy_leads(request):
 def collect_payments(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/collect_payments.html',
@@ -122,7 +158,10 @@ def collect_payments(request):
 def catalog_view(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/catalog_view.html',
@@ -132,7 +171,10 @@ def catalog_view(request):
 def photos_docs(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/photos&docs.html',
@@ -143,7 +185,10 @@ def photos_docs(request):
 def bills_invoice(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/bill&invoice.html',
@@ -154,7 +199,10 @@ def bills_invoice(request):
 def buyer_tools(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/buyer_tools.html',
@@ -165,7 +213,10 @@ def buyer_tools(request):
 def settings(request):
 
     current_profile = request.user.profile
-    current_supplier = Supplier.objects.get(user=request.user)
+    try:
+        current_supplier = Supplier.objects.get(user=request.user)
+    except Supplier.DoesNotExist:
+        current_supplier = None
 
     return render(request,
                 'dashboard/settings.html',

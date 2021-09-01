@@ -27,8 +27,21 @@
                                 </div>
                             </div>
                             <div class="card border-0">
+                                <div class="highlight ps-sm-3 pt-sm-4 text-center">
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <p>
+                                        {{ message }}
+                                    </p>
+                                    {% endfor %}
+                                    {% else %}
+                                    <h1 class="fs-5 mb-0">Welcome</h1>
+                                    <p>Login for a seamless experience</p>
+                                    {% endif %}
+                                </div>
                                 <div class="card-body">
                                     <form method="POST">
+                                        {% csrf_token %}
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control shadow-none" id="floatingName"
                                                 name="first_name" placeholder="name@example.com" required>

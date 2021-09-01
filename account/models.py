@@ -1,22 +1,32 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db.models.deletion import CASCADE
+from django.contrib.auth.models import User
 from products.models import Products
 from suppliers.models import Supplier
 
 
-ACCOUNTS = ( ('Supplier','supplier'),
-             ('Retailer','retailer'),
+ACCOUNTS = ( ('Supplier','Supplier'),
+             ('Retailer','Retailer'),
             )
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     linked = models.BooleanField(default=False)
     account_type = models.CharField(max_length=50,choices=ACCOUNTS)
 
     def __str__(self):
-        return self.user.first_name + ' ' + self.user.last_name
+        return self.user.username
+
+@receiver(post_save, sender=User)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+        
 
 
 class Primary_leads(models.Model):

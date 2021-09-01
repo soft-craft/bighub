@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -17,7 +18,7 @@ STATES = (
 
 class Supplier(models.Model):
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     state = models.CharField(max_length=50,choices=STATES)
     city = models.CharField(max_length=20)

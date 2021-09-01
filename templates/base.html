@@ -178,6 +178,11 @@
                             </li>
                             {% if request.user.is_authenticated %}
                             <li class="list-group-item">
+                                <a href="{% url "dashboard" %}" class="text-decoration-none">
+                                    <i class="fas fa-tasks"></i><span class="ms-2">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
                                 <a href="{% url "logout" %}" class="text-decoration-none">
                                     <i class="fas fa-tasks"></i><span class="ms-2">Sign Out</span>
                                 </a>
