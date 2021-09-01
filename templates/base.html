@@ -260,13 +260,51 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
-                                        <p>Modal body PK text goes here.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="tab-content" id="pills-tabContent">
+                                                    <div class="tab-pane fade show active" id="pills-signup" role="tabpanel"
+                                                        aria-labelledby="pills-signup-tab">
+                                                        <div class="card border-0">
+                                                            <div class="highlight ps-sm-3 pt-sm-4 text-center">
+                                                                {% if messages %}
+                                                                {% for message in messages %}
+                                                                <p>
+                                                                    {{ message }}
+                                                                </p>
+                                                                {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <form method="POST">
+                                                                    {% csrf_token %}
+                                                                    <div class="form-floating mb-3">
+                                                                        <input type="text" class="form-control shadow-none" id="floatingName"
+                                                                            name="first_name" placeholder="name@example.com" required>
+                                                                        <label for="floatingName">Requirement 1</label>
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <input type="text" class="form-control shadow-none" id="floatingName"
+                                                                            name="last_name" placeholder="name@example.com">
+                                                                        <label for="floatingName">Requirement 2</label>
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <input type="email" class="form-control shadow-none" id="floatingEmail"
+                                                                            name="email" placeholder="name@example.com">
+                                                                        <label for="floatingEmail">Requirement 3</label>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

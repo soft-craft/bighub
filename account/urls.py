@@ -24,7 +24,7 @@ urlpatterns = [
         path('settings/',views.settings, name='settings'),
 
         # change password urls
-        path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+        path('password_change', views.change_password, name='password_change'),
         path('password_change/done/',auth_views.PasswordChangeDoneView.as_view(),name='password_change_done'),
 
         # reset password urls

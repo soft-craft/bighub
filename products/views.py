@@ -62,20 +62,16 @@ def submit_product(request):
 
         if submit_product_form.is_valid():
             new_product = submit_product_form.save(commit=False)
-            print(request.POST)
             new_product.supplier = current_user.supplier
             new_product.slug = slugify(new_product.product_name)
             
             new_product.save()
-
-
         
             return render(request, 'products/submit_product.html',{'new_product':new_product,'current_user':current_user})
 
     else:
         submit_product_form = SubmitProductForm()
         
-
     return render(request, 'products/submit_product.html',{'submit_product_form':submit_product_form})
 
  

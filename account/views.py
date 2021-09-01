@@ -2,9 +2,9 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import get_object_or_404
-from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm
+from .forms import MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 from suppliers.models import Supplier
@@ -295,7 +295,25 @@ def register_supplier(request):
     return render(request,'account/get_verified_supplier.html',{'supplier_form':supplier_form})
 
 
-
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        change_password_form = MyPasswordChangeForm(user=request.user, data=request.POST)
+        if change_password_form.is_valid():
+            change_password_form.save()
+            # This will update the session and we won't be logged out after changing the password
+            update_session_auth_hash(request, change_password_form.user)
+            messages.success(request, 'Your password has been updated!')
+            return redirect('password_change')
+        else:
+            messages.success(request, 'Something went wrong. Please try again.')
+            return redirect('password_change')
+    else:
+        change_password_form = MyPasswordChangeForm(user=request.user)
+    context = {
+               'change_password_form':change_password_form,
+               }
+    return render(request, 'account/password_change_form.html', context)
     
 
 
