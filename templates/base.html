@@ -212,10 +212,12 @@
                         </button>
                         <!-- <a href="#" class="btn btn-sm btn-success d-md-none"></a> -->
                         <!-- Button trigger modal -->
+                        {% if request.user.supplier.verified %}
                         <button type="button" class="btn btn-sm btn-success d-md-none" data-bs-toggle="modal"
                             data-bs-target="#postRequireModal">
                             Post Your Requirement
                         </button>
+                        {% endif %}
                         
 
                         <!-- Modal -->
@@ -244,10 +246,12 @@
                     <div class="collapse navbar-collapse" id="navbars">
                         <!-- <a href="#" class="btn btn-outline-success btn-sm d-none d-md-block">Post Your Requirement</a> -->
                         <!-- Button trigger modal -->
+                        {% if request.user.supplier.verified %}
                         <button type="button" class="btn btn-outline-success shadow-none btn-sm d-none d-md-block"
                             data-bs-toggle="modal" data-bs-target="#postRequire_LgModal">
                             Post Your Requirement
                         </button>
+                        {% endif %}
 
                         <!-- Modal -->
                         <div class="modal fade" id="postRequire_LgModal" tabindex="-1"

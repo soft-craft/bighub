@@ -1,6 +1,7 @@
 from django.db import models
 from suppliers.models import Supplier
 from django.urls import reverse
+from datetime import date
 # Create your models here.
 
 class Category(models.Model):
@@ -16,7 +17,12 @@ class Products(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)                                                   
+
+    def get_image_path(self, filename):
+        path = ''.join([date.today().strftime('products/%Y/%m/%d/'), filename])
+        return path
+
+    image = models.ImageField(upload_to=get_image_path, default='default.jpg', blank=True)
 
     supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
     price = models.PositiveIntegerField(null=False, blank=False)
@@ -28,10 +34,8 @@ class Products(models.Model):
         ordering = ('product_name',)
         index_together = (('id', 'slug'),)
 
-
     def __str__(self):
         return self.product_name
-
 
     def get_absolute_url(self):
         return reverse('products:product_detail', args=[self.id,self.slug])

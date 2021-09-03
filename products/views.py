@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import View, TemplateView, CreateView, FormView, DetailView, ListView
 from .models import Products,Category
 from suppliers.models import Supplier
@@ -28,7 +28,6 @@ class HomeView(TemplateView):
 
     
 
-
 def product_detail(request,id,slug):
     product = get_object_or_404(Products,id=id,slug=slug,available=True)
 
@@ -52,9 +51,7 @@ def product_detail(request,id,slug):
 
 
 
-
 def submit_product(request):
-    
     current_user = request.user
 
     if request.method == 'POST':
@@ -67,7 +64,7 @@ def submit_product(request):
             
             new_product.save()
         
-            return render(request, 'products/submit_product.html',{'new_product':new_product,'current_user':current_user})
+            return redirect('dashboard')
 
     else:
         submit_product_form = SubmitProductForm()
