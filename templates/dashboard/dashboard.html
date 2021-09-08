@@ -48,11 +48,16 @@
                                     <i class="fas fa-comment-dots text-light" style="font-size: 40px;"></i>
                                 </div>
                                 <div class="text-center w-100">
+                                    {% if request.user.supplier.verified %}
                                     <h1 class="mb-0 text-muted fs-3">{{leads_count}}</h1>
+                                    {% else %}
+                                    <h1 class="mb-0 text-muted fs-3">0</h1>
+                                    {% endif %}
                                     <p class="mb-0 text-uppercase">Messages</p>
                                 </div>
                             </div>
                             <div class="list-group mt-2">
+                                {% if request.user.supplier.verified %}
                                 {% for m in leads %}
                                 <a href="#" class="list-group-item list-group-item-action border-0 border-bottom"
                                     aria-current="true">
@@ -68,6 +73,9 @@
                                     <strong style="font-size: 14px;">{{m.get_message}}</strong>
                                 </a>
                                 {% endfor %}
+                                {% else %}
+                                <p class="p-2">Please <a href="{% url 'register_supplier' %}">verify</a> to see the leads.</p>
+                                {% endif %}
                             </div>
                             <a href="{% url 'lead_manager' %}" class="text-decoration-none fw-bold">
                                 <div class="text-center py-1">
@@ -83,11 +91,16 @@
                                     <i class="fas fa-hand-holding-usd text-light" style="font-size: 40px;"></i>
                                 </div>
                                 <div class="text-center w-100">
+                                    {% if request.user.supplier.verified %}
                                     <h1 class="mb-0 text-muted fs-3">{{leads_count}}</h1>
+                                    {% else %}
+                                    <h1 class="mb-0 text-muted fs-3">0</h1>
+                                    {% endif %}
                                     <p class="mb-0 text-uppercase">Relevant Buyleads</p>
                                 </div>
                             </div>
                             <div class="list-group mt-2">
+                                {% if request.user.supplier.verified %}
                                 {% for l in leads %}
                                 <a href="#" class="list-group-item list-group-item-action border-0 border-bottom"
                                     aria-current="true">
@@ -101,6 +114,9 @@
                                     <strong style="font-size: 14px;">{{l.get_message}}</strong>
                                 </a>
                                 {% endfor %}
+                                {% else %}
+                                <p class="p-2">Please <a href="{% url 'register_supplier' %}">verify</a> to see the leads.</p>
+                                {% endif %}
                             </div>
                             <a href="{% url 'buy_leads' %}" class="text-decoration-none fw-bold">
                                 <div class="text-center py-1">View All</div>

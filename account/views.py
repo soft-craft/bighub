@@ -1,3 +1,4 @@
+from django.db import reset_queries
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.shortcuts import render
@@ -63,6 +64,32 @@ def user_login(request):
             return redirect('login')
     else:
         return render(request, 'account/login.html')
+
+@login_required
+def post_requirements(request):
+    if request.method == 'POST':
+        current_user = request.user.username
+        buyer = User.objects.get(username=current_user)
+        try:
+            slug = request.POST['product']
+            product = Products.objects.get(slug=slug)
+        except Products.DoesNotExist:
+            product = None
+        quantity_required = request.POST['quantity']
+        request_description = request.POST['description']
+        try:
+            supplier_user = User.objects.get(username=product.supplier.user.username)
+            supplier = Supplier.objects.get(user=supplier_user)
+        except Supplier.DoesNotExist:
+            supplier = None
+
+        primary_leads = Primary_leads(seller=supplier, buyer=buyer, product=product,
+                                      quantity_required=quantity_required,
+                                      request_description=request_description)
+        primary_leads.save()
+        return redirect('home')
+    else:
+        return redirect('home')
 
 
 @login_required

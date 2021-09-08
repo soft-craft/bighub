@@ -246,7 +246,7 @@
                     <div class="collapse navbar-collapse" id="navbars">
                         <!-- <a href="#" class="btn btn-outline-success btn-sm d-none d-md-block">Post Your Requirement</a> -->
                         <!-- Button trigger modal -->
-                        {% if request.user.supplier.verified %}
+                        {% if request.user.is_authenticated %}
                         <button type="button" class="btn btn-outline-success shadow-none btn-sm d-none d-md-block"
                             data-bs-toggle="modal" data-bs-target="#postRequire_LgModal">
                             Post Your Requirement
@@ -280,27 +280,27 @@
                                                                 {% endif %}
                                                             </div>
                                                             <div class="card-body">
-                                                                <form method="POST">
+                                                                <form method="POST" action="{% url 'post_requirements' %}">
                                                                     {% csrf_token %}
                                                                     <div class="form-floating mb-3">
                                                                         <input type="text" class="form-control shadow-none" id="floatingName"
-                                                                            name="first_name" placeholder="name@example.com" required>
-                                                                        <label for="floatingName">Requirement 1</label>
+                                                                            name="product" placeholder="name@example.com" required>
+                                                                        <label for="floatingName">Product</label>
                                                                     </div>
                                                                     <div class="form-floating mb-3">
                                                                         <input type="text" class="form-control shadow-none" id="floatingName"
-                                                                            name="last_name" placeholder="name@example.com">
-                                                                        <label for="floatingName">Requirement 2</label>
+                                                                            name="quantity" placeholder="name@example.com" required>
+                                                                        <label for="floatingName">Quantity</label>
                                                                     </div>
                                                                     <div class="form-floating mb-3">
-                                                                        <input type="email" class="form-control shadow-none" id="floatingEmail"
-                                                                            name="email" placeholder="name@example.com">
-                                                                        <label for="floatingEmail">Requirement 3</label>
+                                                                        <input type="text" class="form-control shadow-none" id="floatingEmail"
+                                                                            name="description" placeholder="name@example.com">
+                                                                        <label for="floatingEmail">Description</label>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
                                                                             data-bs-dismiss="modal">Close</button>
-                                                                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                                                                        <input type="submit" class="btn btn-primary" value="Post">
                                                                     </div>
                                                                 </form>
                                                             </div>
