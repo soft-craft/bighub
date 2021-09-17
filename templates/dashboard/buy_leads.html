@@ -19,7 +19,7 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="pills-relevant_lead-tab" data-bs-toggle="pill"
                                         data-bs-target="#pills-relevant_lead" type="button" role="tab"
-                                        aria-controls="pills-relevant_lead" aria-selected="true">Relevant Leads</button>
+                                        aria-controls="pills-relevant_lead" aria-selected="true">All Leads</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-recent_leads-tab" data-bs-toggle="pill"
@@ -29,31 +29,13 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-expert_lead-tab" data-bs-toggle="pill"
                                         data-bs-target="#pills-expert_lead" type="button" role="tab"
-                                        aria-controls="pills-expert_lead" aria-selected="false">Expert Leads</button>
+                                        aria-controls="pills-expert_lead" aria-selected="false">General Leads</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-shortlisted-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-shortlisted" type="button" role="tab"
-                                        aria-controls="pills-shortlisted" aria-selected="false">Shortlisted
-                                        Leads</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-latest_tender-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-latest_tender" type="button" role="tab"
-                                        aria-controls="pills-latest_tender" aria-selected="false">Latest
-                                        Tenders</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-consumed_lead-tab" data-bs-toggle="pill"
+                                    <button class="nav-link" id="pills-consumed-tab" data-bs-toggle="pill"
                                         data-bs-target="#pills-consumed_lead" type="button" role="tab"
                                         aria-controls="pills-consumed_lead" aria-selected="false">Consumed
                                         Leads</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-transaction-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-transaction" type="button" role="tab"
-                                        aria-controls="pills-transaction" aria-selected="false">Transaction
-                                        History</button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -120,26 +102,24 @@
                                     <!-- Single product -->
                                     <div class="card my-3">
                                         <div class="card-body">
+                                            {% for l in latest_buyleads %}
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <h1 class="fs-5">Rahi TMT Steel</h1>
+                                                    <h1 class="fs-5">{{ l.product.product_name }}</h1>
                                                     <p class="mb-1">
-                                                        <img src="../../image/nepal-flag.png" width="20" alt="">
-                                                        <small>Nepal, Sunsari</small>
+                                                        <img src="{{ l.product.image.url }}" width="20" alt="">
+                                                        <small>{{ l.seller.state }}, {{ l.seller.city }}</small>
                                                     </p>
                                                     <p>
                                                         <i class="far fa-clock text-success" style="width: 20px;"></i>
                                                         <small>21 Hrs Ago</small>
                                                     </p>
 
-                                                    <em>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                                        Exercitationem suscipit eius assumenda repellat eveniet tempore
-                                                        eum
-                                                        adipisci illo tempora a.</em>
+                                                    <em>{{ l.request_description }}</em>
                                                     <table cellpadding="5">
                                                         <tr>
                                                             <td>Quantity</td>
-                                                            <th>: 10 Ton</th>
+                                                            <th>: {{ l.quantity_required }}</th>
                                                         </tr>
                                                         <tr>
                                                             <td>Probable Requirement Type</td>
@@ -147,7 +127,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Probable Order Value</td>
-                                                            <th>: Rs. <span>3,90,000</span> - <span>5,50,000</span></th>
+                                                            <th>: Rs. <span>{{l.product.price }}</span> <span>each</span></th>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -168,7 +148,7 @@
                                                                             <i class="fas fa-mobile-alt text-danger">
                                                                                 Mobile:</i>
                                                                             <span class="">
-                                                                                +977-9804090266
+                                                                                {{ l.seller.phone_number }}
                                                                             </span>
                                                                         </div>
                                                                         <div class="d-flex flex-column mb-2">
@@ -176,7 +156,7 @@
                                                                                 class="fas fa-envelope-square text-danger">
                                                                                 Email:</i>
                                                                             <span>
-                                                                                raikhalak110@gmail.com
+                                                                                {{ l.seller.user.email }}
                                                                             </span>
                                                                         </div>
 
@@ -185,7 +165,7 @@
                                                                                 Business
                                                                                 Name:</i>
                                                                             <span>
-                                                                                example company
+                                                                                {{ l.seller.name }}
                                                                             </span>
                                                                         </div>
 
@@ -197,17 +177,276 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <hr>
+                                            <br>
+                                            {% endfor %}
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="tab-pane fade" id="pills-recent_leads" role="tabpanel"
                                     aria-labelledby="pills-recent_leads-tab">
-                                    <h1>Recent Leads</h1>
+                                    <div class="tab-pane fade show active" id="pills-relevant_lead" role="tabpanel"
+                                    aria-labelledby="pills-relevant_lead-tab">
+                                    <!-- Product Details Start -->
+                                    <!-- Single product -->
+                                    <div class="card my-3">
+                                        <div class="card-body">
+                                            {% for l in latest_buyleads %}
+                                            {% if l.category == 'Recent Leads' %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h1 class="fs-5">{{ l.product.product_name }}</h1>
+                                                    <p class="mb-1">
+                                                        <img src="{{ l.product.image.url }}" width="20" alt="">
+                                                        <small>{{ l.seller.state }}, {{ l.seller.city }}</small>
+                                                    </p>
+                                                    <p>
+                                                        <i class="far fa-clock text-success" style="width: 20px;"></i>
+                                                        <small>21 Hrs Ago</small>
+                                                    </p>
+
+                                                    <em>{{ l.request_description }}</em>
+                                                    <table cellpadding="5">
+                                                        <tr>
+                                                            <td>Quantity</td>
+                                                            <th>: {{ l.quantity_required }}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Requirement Type</td>
+                                                            <th>: Business Use</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Order Value</td>
+                                                            <th>: Rs. <span>{{l.product.price }}</span> <span>each</span></th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Buyers Details -->
+                                                    <div>
+                                                        <p class="fw-bold mb-1 ps-2">Buyer Details</p>
+                                                        <table class="table mt-1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Member Since</td>
+                                                                    <th>: 9 months</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Available</td>
+                                                                    <td>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-mobile-alt text-danger">
+                                                                                Mobile:</i>
+                                                                            <span class="">
+                                                                                {{ l.seller.phone_number }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i
+                                                                                class="fas fa-envelope-square text-danger">
+                                                                                Email:</i>
+                                                                            <span>
+                                                                                {{ l.seller.user.email }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-building text-danger">
+                                                                                Business
+                                                                                Name:</i>
+                                                                            <span>
+                                                                                {{ l.seller.name }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <a href="#" class="btn btn-success">Contact Buyer Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><hr><br>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-expert_lead" role="tabpanel"
                                     aria-labelledby="pills-expert_lead-tab">
-                                    <h1>Expert Lead</h1>
+                                    <div class="card my-3">
+                                        <div class="card-body">
+                                            {% for l in latest_buyleads %}
+                                            {% if l.category == 'General Leads' %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h1 class="fs-5">{{ l.product.product_name }}</h1>
+                                                    <p class="mb-1">
+                                                        <img src="{{ l.product.image.url }}" width="20" alt="">
+                                                        <small>{{ l.seller.state }}, {{ l.seller.city }}</small>
+                                                    </p>
+                                                    <p>
+                                                        <i class="far fa-clock text-success" style="width: 20px;"></i>
+                                                        <small>21 Hrs Ago</small>
+                                                    </p>
+
+                                                    <em>{{ l.request_description }}</em>
+                                                    <table cellpadding="5">
+                                                        <tr>
+                                                            <td>Quantity</td>
+                                                            <th>: {{ l.quantity_required }}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Requirement Type</td>
+                                                            <th>: Business Use</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Order Value</td>
+                                                            <th>: Rs. <span>{{l.product.price }}</span> <span>each</span></th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Buyers Details -->
+                                                    <div>
+                                                        <p class="fw-bold mb-1 ps-2">Buyer Details</p>
+                                                        <table class="table mt-1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Member Since</td>
+                                                                    <th>: 9 months</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Available</td>
+                                                                    <td>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-mobile-alt text-danger">
+                                                                                Mobile:</i>
+                                                                            <span class="">
+                                                                                {{ l.seller.phone_number }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i
+                                                                                class="fas fa-envelope-square text-danger">
+                                                                                Email:</i>
+                                                                            <span>
+                                                                                {{ l.seller.user.email }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-building text-danger">
+                                                                                Business
+                                                                                Name:</i>
+                                                                            <span>
+                                                                                {{ l.seller.name }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <a href="#" class="btn btn-success">Contact Buyer Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><hr><br>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pills-consumed_lead" role="tabpanel"
+                                    aria-labelledby="pills-consumed_lead-tab">
+                                    <div class="card my-3">
+                                        <div class="card-body">
+                                            {% for l in latest_buyleads %}
+                                            {% if l.category == 'Consumed Leads' %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h1 class="fs-5">{{ l.product.product_name }}</h1>
+                                                    <p class="mb-1">
+                                                        <img src="{{ l.product.image.url }}" width="20" alt="">
+                                                        <small>{{ l.seller.state }}, {{ l.seller.city }}</small>
+                                                    </p>
+                                                    <p>
+                                                        <i class="far fa-clock text-success" style="width: 20px;"></i>
+                                                        <small>21 Hrs Ago</small>
+                                                    </p>
+
+                                                    <em>{{ l.request_description }}</em>
+                                                    <table cellpadding="5">
+                                                        <tr>
+                                                            <td>Quantity</td>
+                                                            <th>: {{ l.quantity_required }}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Requirement Type</td>
+                                                            <th>: Business Use</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Probable Order Value</td>
+                                                            <th>: Rs. <span>{{l.product.price }}</span> <span>each</span></th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Buyers Details -->
+                                                    <div>
+                                                        <p class="fw-bold mb-1 ps-2">Buyer Details</p>
+                                                        <table class="table mt-1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Member Since</td>
+                                                                    <th>: 9 months</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Available</td>
+                                                                    <td>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-mobile-alt text-danger">
+                                                                                Mobile:</i>
+                                                                            <span class="">
+                                                                                {{ l.seller.phone_number }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i
+                                                                                class="fas fa-envelope-square text-danger">
+                                                                                Email:</i>
+                                                                            <span>
+                                                                                {{ l.seller.user.email }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                        <div class="d-flex flex-column mb-2">
+                                                                            <i class="fas fa-building text-danger">
+                                                                                Business
+                                                                                Name:</i>
+                                                                            <span>
+                                                                                {{ l.seller.name }}
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <a href="#" class="btn btn-success">Contact Buyer Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><hr><br>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

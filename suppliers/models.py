@@ -17,7 +17,6 @@ STATES = (
 
 
 class Supplier(models.Model):
-
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     state = models.CharField(max_length=50,choices=STATES)

@@ -71,7 +71,7 @@
                                 </ul>
                             </li-->
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="become_seller.html">
+                                <a class="nav-link active" aria-current="page" href="{% url 'register_supplier' %}">
                                     <i class="fab fa-sellcast"></i> Become a
                                     Seller
                                 </a>
@@ -154,32 +154,37 @@
                             {% else %}
 
                             <li class="list-group-item">
-                                <a href="become_seller.html" class="text-decoration-none">
+                                <a href="{% url 'register_supplier' %}" class="text-decoration-none">
                                     <i class="fas fa-stamp"></i><span class="ms-2">Become
                                         a seller</span>
                                 </a>
                             </li>
                             
                             {% endif %}
-                            <li class="list-group-item">
+                            <!-- <li class="list-group-item">
                                 <a href="#" class="text-decoration-none">
                                     <i class="fas fa-bullhorn"></i><span class="ms-2">Advertise with Vistaar</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="list-group-item">
                                 <a href="#" class="text-decoration-none">
                                     <i class="fas fa-satellite-dish"></i><span class="ms-2">Request for Quotation</span>
                                 </a>
                             </li>
-                            <li class="list-group-item">
+                            <!-- <li class="list-group-item">
                                 <a href="#" class="text-decoration-none">
                                     <i class="fas fa-tasks"></i><span class="ms-2">Enquire & Manage Quotes</span>
                                 </a>
-                            </li>
+                            </li> -->
                             {% if request.user.is_authenticated %}
                             <li class="list-group-item">
                                 <a href="{% url "dashboard" %}" class="text-decoration-none">
                                     <i class="fas fa-tasks"></i><span class="ms-2">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{% url "password_change" %}" class="text-decoration-none">
+                                    <i class="fas fa-tasks"></i><span class="ms-2">Change Password</span>
                                 </a>
                             </li>
                             <li class="list-group-item">
@@ -212,14 +217,11 @@
                         </button>
                         <!-- <a href="#" class="btn btn-sm btn-success d-md-none"></a> -->
                         <!-- Button trigger modal -->
-                        {% if request.user.supplier.verified %}
                         <button type="button" class="btn btn-sm btn-success d-md-none" data-bs-toggle="modal"
                             data-bs-target="#postRequireModal">
                             Post Your Requirement
                         </button>
-                        {% endif %}
                         
-
                         <!-- Modal -->
                         <div class="modal fade" id="postRequireModal" tabindex="-1" aria-labelledby="postRequireModalLabel"
                             aria-hidden="true">
@@ -246,12 +248,10 @@
                     <div class="collapse navbar-collapse" id="navbars">
                         <!-- <a href="#" class="btn btn-outline-success btn-sm d-none d-md-block">Post Your Requirement</a> -->
                         <!-- Button trigger modal -->
-                        {% if request.user.is_authenticated %}
-                        <button type="button" class="btn btn-outline-success shadow-none btn-sm d-none d-md-block"
-                            data-bs-toggle="modal" data-bs-target="#postRequire_LgModal">
+                        <a type="button" class="btn btn-outline-success shadow-none btn-sm d-none d-md-block"
+                            href="{% url 'post_requirements' %}">
                             Post Your Requirement
-                        </button>
-                        {% endif %}
+                        </a>
 
                         <!-- Modal -->
                         <div class="modal fade" id="postRequire_LgModal" tabindex="-1"
@@ -531,6 +531,8 @@
             <li><a href="">Wheel</a></li>
             <li><a href="">Medical Equipment</a></li>
             <li><a href="">Electronic Machine</a></li>
+            <li><a href="">Terms and Conditions</a></li>
+            <li><a href="">Privacy Policy</a></li>
           </ul>
         </div>
         <div class="col-md-4">

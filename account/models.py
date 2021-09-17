@@ -28,6 +28,11 @@ def update_profile_signal(sender, instance, created, **kwargs):
     instance.profile.save()
         
 
+LEADS_CATEGORIES = (
+    ('Recent Leads', 'Recent Leads'),
+    ('General Leads', 'General Leads'),
+    ('Consumed Leads', 'Consumed Leads'),
+)
 
 class Primary_leads(models.Model):
     seller = models.ForeignKey(Supplier, related_name='seller', on_delete=models.CASCADE, null=True)
@@ -35,6 +40,7 @@ class Primary_leads(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
     quantity_required = models.CharField(max_length=500)
     request_description = models.CharField(max_length=999)
+    category = models.CharField(max_length=50,choices=LEADS_CATEGORIES)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -42,49 +42,6 @@
             <div class="container">
                 <div class="row px-0">
                     <div class="col-lg-4 my-3">
-                        <div class=" bg-white shadow-sm rounded">
-                            <div class="d-flex shadow-sm">
-                                <div class="bg-danger d-flex align-items-center px-2 rounded-left">
-                                    <i class="fas fa-comment-dots text-light" style="font-size: 40px;"></i>
-                                </div>
-                                <div class="text-center w-100">
-                                    {% if request.user.supplier.verified %}
-                                    <h1 class="mb-0 text-muted fs-3">{{leads_count}}</h1>
-                                    {% else %}
-                                    <h1 class="mb-0 text-muted fs-3">0</h1>
-                                    {% endif %}
-                                    <p class="mb-0 text-uppercase">Messages</p>
-                                </div>
-                            </div>
-                            <div class="list-group mt-2">
-                                {% if request.user.supplier.verified %}
-                                {% for m in leads %}
-                                <a href="#" class="list-group-item list-group-item-action border-0 border-bottom"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-0 fw-bold" style="font-size: 16px;">{{m.buyer.profile}}</h5>
-                                        <small>3 days ago</small>
-                                    </div>
-
-                                    <p class="mt-0 mb-1" style="font-size: 11px;"><small class="">Dharan,
-                                            Sunsari</small>
-                                    </p>
-
-                                    <strong style="font-size: 14px;">{{m.get_message}}</strong>
-                                </a>
-                                {% endfor %}
-                                {% else %}
-                                <p class="p-2">Please <a href="{% url 'register_supplier' %}">verify</a> to see the leads.</p>
-                                {% endif %}
-                            </div>
-                            <a href="{% url 'lead_manager' %}" class="text-decoration-none fw-bold">
-                                <div class="text-center py-1">
-                                    View All
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 my-3">
                         <div class="bg-white shadow-sm rounded">
                             <div class="d-flex shadow-sm">
                                 <div class="bg-primary d-flex align-items-center px-2 rounded-left">
@@ -100,8 +57,8 @@
                                 </div>
                             </div>
                             <div class="list-group mt-2">
-                                {% if request.user.supplier.verified %}
                                 {% for l in leads %}
+                                {% if request.user.supplier.verified and request.user.supplier == l.seller %}
                                 <a href="#" class="list-group-item list-group-item-action border-0 border-bottom"
                                     aria-current="true">
                                     <div class="d-flex w-100 justify-content-between">
@@ -109,19 +66,63 @@
                                         <small>3 days ago</small>
                                     </div>
                                     <p class="mt-0 mb-1" style="font-size: 11px;">
-                                        <small class="">Dharan, Sunsari</small>
+                                        <small class="">{{l.seller.street}}, {{l.seller.city}}</small>
                                     </p>
                                     <strong style="font-size: 14px;">{{l.get_message}}</strong>
                                 </a>
-                                {% endfor %}
-                                {% else %}
+                                {% endif %}
+                                {% if not request.user.supplier.verified %}
                                 <p class="p-2">Please <a href="{% url 'register_supplier' %}">verify</a> to see the leads.</p>
                                 {% endif %}
+                                {% endfor %}
                             </div>
                             <a href="{% url 'buy_leads' %}" class="text-decoration-none fw-bold">
                                 <div class="text-center py-1">View All</div>
                             </a>
                         </div>
+                    </div>
+                    <div class="col-lg-4 my-3">
+                        <!-- <div class=" bg-white shadow-sm rounded">
+                            <div class="d-flex shadow-sm">
+                                <div class="bg-danger d-flex align-items-center px-2 rounded-left">
+                                    <i class="fas fa-comment-dots text-light" style="font-size: 40px;"></i>
+                                </div>
+                                <div class="text-center w-100">
+                                    {% if request.user.supplier.verified %}
+                                    <h1 class="mb-0 text-muted fs-3">{{leads_count}}</h1>
+                                    {% else %}
+                                    <h1 class="mb-0 text-muted fs-3">0</h1>
+                                    {% endif %}
+                                    <p class="mb-0 text-uppercase">Messages</p>
+                                </div>
+                            </div>
+                            <div class="list-group mt-2">
+                                {% for m in leads %}
+                                {% if request.user.supplier.verified and request.user.supplier == m.seller %}
+                                <a href="#" class="list-group-item list-group-item-action border-0 border-bottom"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-0 fw-bold" style="font-size: 16px;">{{m.buyer.profile}}</h5>
+                                        <small>3 days ago</small>
+                                    </div>
+
+                                    <p class="mt-0 mb-1" style="font-size: 11px;"><small class="">{{m.seller.street}}, {{m.seller.city}}</small>
+                                    </p>
+
+                                    <strong style="font-size: 14px;">{{m.get_message}}</strong>
+                                </a>
+                                {% endif %}
+                                {% if not request.user.supplier.verified %}
+                                <p class="p-2">Please <a href="{% url 'register_supplier' %}">verify</a> to see the leads.</p>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <a href="{% url 'lead_manager' %}" class="text-decoration-none fw-bold">
+                                <div class="text-center py-1">
+                                    View All
+                                </div>
+                            </a>
+                        </div> -->
                     </div>
                     <div class="col-lg-4 my-3">
                         <div class="bg-white shadow-sm rounded">
@@ -137,54 +138,11 @@
                             <div class="list-group mt-2">
                                 <img src="{% static "image/premium.svg" %}" alt="">
                             </div>
-                            <a href="#" class="text-decoration-none fw-bold">
+                            <!-- <a href="#" class="text-decoration-none fw-bold">
                                 <div class="text-center py-1">
                                     SUBSCRIBE PREMIUM TO UNLOCK
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="bg-white rounded shadow-sm p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h1 class="fs-5">Active Service</h1>
-                                <a href="#" class="text-decoration-none">View Past Invoice ></a>
-                            </div>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Service</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Valid For</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>mini dynamic catalog</td>
-                                        <td>18-mar-2021</td>
-                                        <td>21-mar-2021</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="bg-white rounded shadow-sm p-3">
-                            <h1 class="fs-5">Business Card</h1>
-                            <div class="custom-file">
-                                <input id="" class="custom-file-input" type="file" name="">
-                            </div>
-                            <div class="pt-3">
-                                <img src="{% static 'image/logo.png' %}" class="img-fluid" alt="">
-                            </div>
+                            </a> -->
                         </div>
                     </div>
                 </div>

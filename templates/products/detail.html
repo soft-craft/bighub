@@ -19,7 +19,8 @@
                     <div class="card border-0">
                         <div class="card-body text-center p-0">
                             <img src="{% static 'image/product-2.png' %}" width="90" class="img-fluid" alt="">
-                            <p><a href="#" class="btn btn-sm btn-outline-secondary">Follow</a></p>
+                            <!-- <p><a href="#" class="btn btn-sm btn-outline-secondary">Follow</a></p> -->
+                            <p></p>
                         </div>
                         <div class="card-footer bg-white">
                             <div class="text-center text-md-start">
@@ -88,7 +89,8 @@
                         </div>
                         <div class="col-md-8 p-3">
                             <h1 class="fs-4"><a href="#" class="text-decoration-none text-dark">{{ product.product_name }}</a></h1>
-                            <p><a href="#" class="text-decoration-none">Ask for price</a></p>
+                            <!-- <p><a href="#" class="text-decoration-none">Ask for price</a></p> -->
+                            <p></p>
                             <div class="d-flex justify-content-between pe-3">
                                 <h1 class="fs-5">Specification
                                 </h1>
@@ -106,8 +108,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <h1 class="fs-4">Shipping</h1>
-                            <p>Contact Supplier for Shipping Cost To Mumbai</p>
+                            <!-- <h1 class="fs-4">Shipping</h1>
+                            <p>Contact Supplier for Shipping Cost To Mumbai</p> -->
                             <div class="card p-0">
                                 <img src="{% static 'image/banner/banner-1.jpg' %}" class="img-fluid rounded" alt="">
                             </div>
@@ -142,7 +144,7 @@
                 <!-- More Seller Product End -->
 
                 <!-- Company Detailed Start -->
-                <div class="py-5">
+                <!-- <div class="py-5">
                     <h1 class="fs-4">COMPANY HIGHLIGHTS</h1>
                     <div class="card p-2">
                         <div style="width: 150px;">
@@ -197,7 +199,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Company Detailed End -->
 
                 <!-- Product Detailed Start -->
@@ -229,25 +231,25 @@
                             aria-labelledby="company-profile-tab">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="fs-5">Velocity Tyre Booth</h1>
+                                    <h1 class="fs-5">{{ product.supplier.name }}</h1>
                                     <div class="list-group">
                                         <label class="list-group-item">
                                             <i class="fas fa-map-marker-alt"></i>
-                                            Amrut Nagar Lbs Road, Ghatkopar West, Mumbai - 400086
+                                            {{product.supplier.street}}, {{product.supplier.city}}, {{product.supplier.state}}
                                         </label>
-                                        <label class="list-group-item">
+                                        <!-- <label class="list-group-item">
                                             <i class="fas fa-phone-alt"></i>
                                             Show Phone Number
-                                        </label>
+                                        </label> -->
                                         <label class="list-group-item">
                                             <i class="far fa-clock"></i>
                                             Opens at 10:00 am tomorrow :Mon - Sat:- 10:00 am - 5:00 pm,Sun:- Closed
                                             - Closed
                                         </label>
-                                        <label class="list-group-item">
+                                        <!-- <label class="list-group-item">
                                             <i class="fas fa-exclamation-triangle"></i>
                                             Hours and Services may be differ
-                                        </label>
+                                        </label> -->
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +259,7 @@
                 <!-- Product Detailed End -->
 
                 <!-- Message Start -->
-                <div class="py-5">
+                <!-- <div class="py-5">
                     <h1 class="fs-4">SEND YOUR MESSAGE TO THIS SUPPLIER</h1>
                     <div class="card mt-3">
                         <div class="card-body">
@@ -290,7 +292,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Message End -->
             </div>
         </div>

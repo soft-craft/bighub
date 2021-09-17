@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import get_object_or_404
 from .forms import MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import *
 from suppliers.models import Supplier
 
@@ -71,25 +72,27 @@ def post_requirements(request):
         current_user = request.user.username
         buyer = User.objects.get(username=current_user)
         try:
-            slug = request.POST['product']
-            product = Products.objects.get(slug=slug)
+            product_attribute = request.POST['product']
+            products = Products.objects.all()
+            product = products.filter(Q(product_name__icontains=product_attribute) | Q(description__icontains=product_attribute))
         except Products.DoesNotExist:
             product = None
         quantity_required = request.POST['quantity']
         request_description = request.POST['description']
-        try:
-            supplier_user = User.objects.get(username=product.supplier.user.username)
-            supplier = Supplier.objects.get(user=supplier_user)
-        except Supplier.DoesNotExist:
-            supplier = None
+        for pr in product:
+            try:
+                supplier_user = User.objects.get(username=pr.supplier.user.username)
+                supplier = Supplier.objects.get(user=supplier_user)
+            except Supplier.DoesNotExist:
+                supplier = None
 
-        primary_leads = Primary_leads(seller=supplier, buyer=buyer, product=product,
-                                      quantity_required=quantity_required,
-                                      request_description=request_description)
-        primary_leads.save()
+            primary_leads = Primary_leads(seller=supplier, buyer=buyer, product=pr,
+                                        quantity_required=quantity_required,
+                                        request_description=request_description)
+            primary_leads.save()
         return redirect('home')
     else:
-        return redirect('home')
+        return render(request, 'account/post_requirements.html')
 
 
 @login_required
@@ -150,9 +153,14 @@ def manage_products(request):
     except Supplier.DoesNotExist:
         current_supplier = None
 
+    products = Products.objects.filter(supplier=current_supplier)
+
     return render(request,
                 'dashboard/manage_products.html',
-                {'section': 'dashboard','current_profile': current_profile,'current_supplier':current_supplier})
+                {'section': 'dashboard','current_profile': current_profile,
+                 'current_supplier':current_supplier,
+                 'products': products})
+
 
 @login_required
 def buy_leads(request):
@@ -163,9 +171,13 @@ def buy_leads(request):
     except Supplier.DoesNotExist:
         current_supplier = None
 
+    latest_buyleads = Primary_leads.objects.filter(seller=current_supplier)[:3]
+
     return render(request,
                 'dashboard/buy_leads.html',
-                {'section': 'dashboard','current_profile': current_profile,'current_supplier':current_supplier})
+                {'section': 'dashboard','current_profile': current_profile,
+                 'current_supplier':current_supplier,
+                 'latest_buyleads': latest_buyleads})
 
 
 @login_required

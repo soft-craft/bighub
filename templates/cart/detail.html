@@ -62,12 +62,12 @@ method="post">
     {% if user_profile.account_type == 'Retailer' %}
     <a href="{% url "orders:order_create" %}" class="button">Checkout</a>
     {% elif user_profile.account_type == 'Supplier' %}
-    <a href="{% url "account:logout" %}" class="button">Create a retailer account to shop</a>
+    <a href="{% url "logout" %}" class="button">Create a retailer account to shop</a>
     {% elif user_profile.account_type == None %}
-    <a href="{% url "account:dashboard" %}" class="button">Complete your profile as a retailer</a>
+    <a href="{% url "dashboard" %}" class="button">Complete your profile as a retailer</a>
     {% endif %}
     {% else %}
-    <a href="{% url "account:login" %}" class="button">Login to shop</a>
+    <a href="{% url "login" %}" class="button">Login to shop</a>
     {% endif %}
     </p>
     {% endblock %}
