@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import View, TemplateView, CreateView, FormView, DetailView, ListView
 from .models import Products,Category
@@ -72,3 +74,21 @@ def submit_product(request):
     return render(request, 'products/submit_product.html',{'submit_product_form':submit_product_form})
 
  
+@login_required
+def get_best_price(request, id):
+    if request.method == 'POST':
+        current_user = request.user.username
+        buyer = User.objects.get(username=current_user)
+        product = Products.objects.get(id=id)
+        supplier = product.supplier
+
+        quantity_required = request.POST['quantity']
+        request_description = request.POST['description']
+
+        primary_leads = Primary_leads(seller=supplier, buyer=buyer, product=product,
+                                    quantity_required=quantity_required,
+                                    request_description=request_description)
+        primary_leads.save()
+        return redirect('home')
+    else:
+        return render(request, 'product/detail.html')

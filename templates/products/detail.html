@@ -39,19 +39,98 @@
                             </div>
                             <div class="text-center">
                                 <p class="text-muted mb-1">For more details on products</p>
-                                <a href="#" class="btn btn-outline-primary btn-sm w-50">Contact Suppliers</a>
+                                <button type="button" class="btn btn-outline-primary btn-sm w-50"
+                                    data-bs-toggle="modal" data-bs-target="#contact-suppliers">
+                                    Contact Suppliers
+                                </button>
                                 {% if request.user.profile.account_type == 'Retailer' %}
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <p class='mt-2'><input class="btn btn-sm btn-primary w-50" type="submit" value="Get Best Price"></p>
-                                </form>
+                                <button type="button" class="btn btn-primary btn-sm w-50"
+                                    data-bs-toggle="modal" data-bs-target="#get-best-price">
+                                    Get Best Price
+                                </button>
                                 {% endif %}
 
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- Modal Contact Suppliers -->
+                <div class="modal fade" id="contact-suppliers" tabindex="1" aria-labelledby="get_best_price_label"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="get_best_price_label">Suppliers Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>{{product.supplier.name}}</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="details d-flex">
+                                        <span style="min-width: 90px;">Email ID:</span>
+                                        <a href="#" class="text-success w-100">{{product.supplier.user.email}}</a>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="details d-flex">
+                                        <span style="min-width: 90px;">Contact :</span>
+                                        <a href="#" class="text-success w-100">{{product.supplier.phone_number}}</a>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="details d-flex">
+                                        <span style="min-width: 90px;">Address :</span>
+                                        <a href="#" class="text-success w-100">
+                                            {{product.supplier.street}} {{product.supplier.city}} {{product.supplier.state}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Get Best Price -->
+            <div class="modal fade" id="get-best-price" tabindex="1" aria-labelledby="get_best_price_label"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="get_best_price_label">Set Your Price Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <!-- Form Start -->
+                        <div class="modal-body">
+                            <form action="{% url 'products:get_best_price' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="text" class="form-control" id="quantity"
+                                        name="quantity" placeholder="Quantity">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3"
+                                        name="description" placeholder="Description"></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
             <!-- Company Card End -->
 

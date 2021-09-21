@@ -76,28 +76,29 @@
                                                                     <td valign="middle">Contact Person Name <span
                                                                             class="text-danger">*</span></td>
                                                                     <td><input type="text" name=""
-                                                                            class="form-control shadow-none" id=""></td>
+                                                                            class="form-control shadow-none"
+                                                                            value="{{current_supplier.name}}" readonly></td>
                                                                 </tr>
-                                                                <tr>
+                                                                <!-- <tr>
                                                                     <td valign="middle">
                                                                         <label for="my-input">Designation</label>
                                                                     </td>
                                                                     <td>
                                                                         <input id="my-input"
                                                                             class="form-control shadow-none" type="text"
-                                                                            name="">
+                                                                            name="" readonly>
                                                                     </td>
-                                                                </tr>
-                                                                <tr>
+                                                                </tr> -->
+                                                                <!-- <tr>
                                                                     <td valign="middle">
                                                                         <label for="my-input">Mobile no.</label>
                                                                     </td>
                                                                     <td>
                                                                         <input id="my-input"
                                                                             class="form-control shadow-none" type="text"
-                                                                            name="">
+                                                                            name="" readonly>
                                                                     </td>
-                                                                </tr>
+                                                                </tr> -->
                                                                 <tr>
                                                                     <td valign="middle">
                                                                         <label for="my-input">Phone no.</label>
@@ -105,7 +106,7 @@
                                                                     <td>
                                                                         <input id="my-input"
                                                                             class="form-control shadow-none" type="text"
-                                                                            name="">
+                                                                            value="{{current_supplier.phone_number}}" name="" readonly>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -115,10 +116,11 @@
                                                                     <td>
                                                                         <input id="my-input"
                                                                             class="form-control shadow-none"
-                                                                            type="email" name="">
+                                                                            type="email"
+                                                                            value="{{current_supplier.user.email}}" readonly>
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
+                                                                <!-- <tr>
                                                                     <td valign="middle">
                                                                         <label for="my-input">Alternative Email
                                                                             ID</label>
@@ -126,12 +128,13 @@
                                                                     <td>
                                                                         <input id="my-input"
                                                                             class="form-control shadow-none"
-                                                                            type="email" name="">
+                                                                            type="email" name="" readonly>
                                                                     </td>
-                                                                </tr>
+                                                                </tr> -->
                                                             </tbody>
                                                         </table>
                                                     </form>
+                                                    <a href="" class="btn btn-primary">Edit</a>
                                                 </div>
                                             </div>
                                             <!-- <div class="card">

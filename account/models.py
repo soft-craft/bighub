@@ -40,7 +40,7 @@ class Primary_leads(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
     quantity_required = models.CharField(max_length=500)
     request_description = models.CharField(max_length=999)
-    category = models.CharField(max_length=50,choices=LEADS_CATEGORIES)
+    category = models.CharField(max_length=50,choices=LEADS_CATEGORIES, default="Recent Leads")
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

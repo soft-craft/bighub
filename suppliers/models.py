@@ -26,7 +26,42 @@ class Supplier(models.Model):
 
     verified = models.BooleanField(default=False)
 
-
     def __str__(self):
-
         return self.name
+
+    
+class Company(models.Model):
+    supplier = models.OneToOneField(Supplier, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=200)
+    establishment_year = models.CharField(max_length=10)
+    ceo_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=150)
+    website = models.CharField(max_length=150)
+
+    def __str__(self) -> str:
+        return self.company_name
+
+
+class CompanyAddress(models.Model):
+    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+    pin_code = models.CharField(max_length=15)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    building_number = models.CharField(max_length=10, null=True, blank=True)
+    street = models.CharField(max_length=20, null=True, blank=True)
+    locality = models.CharField(max_length=30, null=True, blank=True)
+    landmark = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.company.name
+
+
+class CompanyStatutory(models.Model):
+    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+    exim = models.CharField(max_length=20)
+    pan = models.CharField(max_length=20)
+    vat = models.CharField(max_length=20)
+
+    def __str__(self) -> str:
+        return self.company.name
