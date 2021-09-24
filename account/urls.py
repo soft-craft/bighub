@@ -43,9 +43,4 @@ urlpatterns = [
         #Verifying Users
         path('verify_retailer', views.register_retailer, name='register_retailer'),
         path('verify_supplier', views.register_supplier, name='register_supplier'),
-
-
-
-
-
 ]

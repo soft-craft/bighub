@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from retailers.models import Retailer
-from suppliers.models import Supplier
+from suppliers.models import Supplier, Company
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import password_validation
 
@@ -118,3 +118,24 @@ class MyPasswordChangeForm(PasswordChangeForm):
                     widget=forms.PasswordInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
                     label='Confirm New Password'
                 )
+
+
+class CompanyForm(forms.ModelForm):
+
+    class Meta:
+        model = Company
+        fields = ('company_name','establishment_year','ceo_name','email','website')
+        widgets = {
+            'company_name': forms.TextInput(attrs={'class':'form-control shadow-none'}),
+            'establishment_year': forms.TextInput(attrs={'class':'form-control shadow-none'}),
+            'ceo_name': forms.TextInput(attrs={'class':'form-control shadow-none'}),
+            'email': forms.TextInput(attrs={'class':'form-control shadow-none'}),
+            'website': forms.TextInput(attrs={'class':'form-control shadow-none'}),
+        }
+        labels = {
+            'company_name': 'Company Name',
+            'establishment_year': 'Year of Establishment',
+            'ceo_name': 'CEO Name',
+            'email': 'Email Address',
+            'website': 'Website'
+        }

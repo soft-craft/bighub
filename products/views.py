@@ -6,7 +6,7 @@ from .models import Products,Category
 from suppliers.models import Supplier
 from account.models import Primary_leads, Message_box, Lead_messages
 from cart.forms import CartAddProductForm
-from .forms import SubmitProductForm
+from .forms import ProductEditForm, SubmitProductForm
 from django.utils.text import slugify
 from django.http import JsonResponse
 import datetime
@@ -92,3 +92,20 @@ def get_best_price(request, id):
         return redirect('home')
     else:
         return render(request, 'product/detail.html')
+
+
+@login_required
+def edit_product(request, id):
+    product = Products.objects.get(pk=id)
+
+    if request.method == 'POST':
+        product_form = ProductEditForm(instance=product,
+                                    data=request.POST,
+                                    files=request.FILES)
+        if product_form.is_valid():
+            product_form.save()
+    else:
+        product_form = ProductEditForm(instance=product)
+    return render(request,
+                  'products/edit.html',
+                  {'product_form': product_form})

@@ -5,11 +5,11 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import get_object_or_404
-from .forms import MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm
+from .forms import MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm, CompanyForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
-from suppliers.models import Supplier
+from suppliers.models import Company, Supplier
 
 # Create your views here.
 
@@ -125,9 +125,29 @@ def company_profile(request):
     except Supplier.DoesNotExist:
         current_supplier = None
 
+    current_company = Company.objects.get_or_create(supplier=current_supplier)
+
+    try:
+        company_form = CompanyForm(instance=current_company.id)
+    except:
+        company_form = CompanyForm(request.POST or None)
+
+    if request.method == 'POST':
+        try:
+            company_form = CompanyForm(instance=current_company.id)
+        except:
+            company_form = CompanyForm(request.POST or None)
+
+        if company_form.is_valid():
+            company_details = company_form.save(commit=False)
+            company_details.supplier = current_supplier
+            company_details.save()
+
     return render(request,
                 'dashboard/company_profile.html',
-                {'section': 'dashboard','current_profile': current_profile,'current_supplier':current_supplier})
+                {'section': 'dashboard','current_profile': current_profile,
+                'current_supplier':current_supplier, 'company_form': company_form})
+                
 
 @login_required
 def lead_manager(request):
@@ -354,10 +374,3 @@ def change_password(request):
                }
     return render(request, 'account/password_change_form.html', context)
     
-
-
-            
-
-
-
-
