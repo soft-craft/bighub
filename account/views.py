@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import get_object_or_404
-from .forms import MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm, CompanyForm
+from .forms import LeadsEditForm, MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm, CompanyForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
@@ -198,6 +198,22 @@ def buy_leads(request):
                 {'section': 'dashboard','current_profile': current_profile,
                  'current_supplier':current_supplier,
                  'latest_buyleads': latest_buyleads})
+
+
+@login_required
+def edit_leads(request, id):
+    lead = Primary_leads.objects.get(pk=id)
+
+    if request.method == 'POST':
+        lead_edit_form = LeadsEditForm(instance=lead,
+                                    data=request.POST)
+        if lead_edit_form.is_valid():
+            lead_edit_form.save()
+    else:
+        lead_edit_form = LeadsEditForm(instance=lead)
+    return render(request,
+                  'dashboard/edit_leads.html',
+                  {'lead_edit_form': lead_edit_form})
 
 
 @login_required

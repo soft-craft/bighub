@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Primary_leads, Profile
 from retailers.models import Retailer
 from suppliers.models import Supplier, Company
 from django.contrib.auth.forms import PasswordChangeForm
@@ -138,4 +138,16 @@ class CompanyForm(forms.ModelForm):
             'ceo_name': 'CEO Name',
             'email': 'Email Address',
             'website': 'Website'
+        }
+
+
+class LeadsEditForm(forms.ModelForm):
+    class Meta:
+        model = Primary_leads
+        fields = ('category',)
+        widgets = {
+            'category': forms.Select(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'})
+        }
+        labels = {
+            'category': 'Category'
         }

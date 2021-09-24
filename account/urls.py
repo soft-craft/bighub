@@ -17,6 +17,8 @@ urlpatterns = [
         path('lead_manager/',views.lead_manager, name='lead_manager'),
         path('manage_products/',views.manage_products, name='manage_products'),
         path('buy_leads/',views.buy_leads, name='buy_leads'),
+        path('edit_leads/<int:id>/',views.edit_leads, name='edit_leads'),
+
         path('collect_payments/',views.collect_payments, name='collect_payments'),
         path('catalog_view/',views.catalog_view, name='catalog_view'),
         path('photos_and_docs/',views.photos_docs, name='photos_docs'),
