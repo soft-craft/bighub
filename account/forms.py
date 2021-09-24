@@ -81,23 +81,109 @@ class RetailerForm(forms.ModelForm):
 
 
 class SupplierForm(forms.ModelForm):
-
     class Meta:
         model = Supplier
-        fields = ('name','state','city','street','phone_number')
+        fields = ('name','phone_number','company_name','establishment_year','ceo_name',
+                  'email','website','pin_code','state','city','street','building_number',
+                  'locality','landmark','exim','pan','vat')
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'phone_number': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+
+            'company_name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'establishment_year': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'ceo_name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'email': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'website': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+
+            'pin_code': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
             'state': forms.Select(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
             'city': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
             'street': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
-            'phone_number': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'building_number': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'locality': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'landmark': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+
+            'exim': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'pan': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'vat': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
         }
         labels = {
-            'name': 'Name',
-            'state': 'State',
-            'city': 'City',
-            'street': 'Street',
-            'phone_number': 'Phone Number'
+            'name': 'Name *',
+            'phone_number': 'Phone Number *',
+            'company_name': 'Company Name *',
+            'establishment_year': 'Year of Establishment *',
+            'ceo_name': 'CEO Name *',
+            'email': 'Email *',
+            'website': 'Website *',
+            'pin_code': 'PIN Code *',
+            'state': 'State *',
+            'city': 'City *',
+            'street': 'Street *',
+            'building_number': 'Building Number',
+            'locality': 'Locality',
+            'landmark': 'Landmark',
+            'exim': 'EXIM',
+            'pan': 'PAN',
+            'vat': "VAT"
+        }
+
+
+class EditCompanyInfoForm(forms.ModelForm):
+    class Meta:
+        model = Supplier
+        fields = ('name','phone_number','email')
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'phone_number': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'email': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+        }
+        labels = {
+            'name': 'Name *',
+            'phone_number': 'Phone Number *',
+            'email': 'Email *'
+        }
+
+
+class EditBusinessProfileForm(forms.ModelForm):
+    class Meta:
+        model = Supplier
+        fields = ('company_name','establishment_year','ceo_name',
+                  'website','pin_code','state','city','street','building_number',
+                  'locality','landmark','exim','pan','vat')
+        widgets = {
+            'company_name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'establishment_year': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'ceo_name': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'website': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+
+            'pin_code': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'state': forms.Select(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'city': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'street': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'building_number': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'locality': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'landmark': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+
+            'exim': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'pan': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+            'vat': forms.TextInput(attrs={'class':'form-control shadow-none', 'id':'floatingName', 'placeholder':'name@example.com'}),
+        }
+        labels = {
+            'company_name': 'Company Name *',
+            'establishment_year': 'Year of Establishment *',
+            'ceo_name': 'CEO Name *',
+            'website': 'Website *',
+            'pin_code': 'PIN Code *',
+            'state': 'State *',
+            'city': 'City *',
+            'street': 'Street *',
+            'building_number': 'Building Number',
+            'locality': 'Locality',
+            'landmark': 'Landmark',
+            'exim': 'EXIM',
+            'pan': 'PAN',
+            'vat': "VAT"
         }
 
 

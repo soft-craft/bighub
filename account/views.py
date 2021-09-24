@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import get_object_or_404
-from .forms import LeadsEditForm, MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm, CompanyForm
+from .forms import EditBusinessProfileForm, EditCompanyInfoForm, LeadsEditForm, MyPasswordChangeForm, UserRegistrationForm, UserEditForm, ProfileEditForm, RetailerForm, SupplierForm, CompanyForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
@@ -368,6 +368,34 @@ def register_supplier(request):
         supplier_form = SupplierForm()
 
     return render(request,'account/get_verified_supplier.html',{'supplier_form':supplier_form})
+
+
+@login_required
+def edit_company_info(request):
+    if request.method == 'POST':
+        company_info_form = EditCompanyInfoForm(instance=request.user.supplier,
+                                 data=request.POST)
+        if company_info_form.is_valid():
+            company_info_form.save()
+    else:
+        company_info_form = EditCompanyInfoForm(instance=request.user.supplier)
+    return render(request,
+                  'dashboard/edit_company_info.html',
+                  {'company_info_form': company_info_form})
+
+
+@login_required
+def edit_business_profile(request):
+    if request.method == 'POST':
+        business_profile_form = EditBusinessProfileForm(instance=request.user.supplier,
+                                 data=request.POST)
+        if business_profile_form.is_valid():
+            business_profile_form.save()
+    else:
+        business_profile_form = EditBusinessProfileForm(instance=request.user.supplier)
+    return render(request,
+                  'dashboard/edit_company_info.html',
+                  {'company_info_form': business_profile_form})
 
 
 @login_required

@@ -310,7 +310,7 @@
                             aria-labelledby="company-profile-tab">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="fs-5">{{ product.supplier.name }}</h1>
+                                    <h1 class="fs-5">{{ product.supplier.company_name }}</h1>
                                     <div class="list-group">
                                         <label class="list-group-item">
                                             <i class="fas fa-map-marker-alt"></i>
@@ -322,8 +322,7 @@
                                         </label> -->
                                         <label class="list-group-item">
                                             <i class="far fa-clock"></i>
-                                            Opens at 10:00 am tomorrow :Mon - Sat:- 10:00 am - 5:00 pm,Sun:- Closed
-                                            - Closed
+                                            {{product.supplier.establishment_year}}
                                         </label>
                                         <!-- <label class="list-group-item">
                                             <i class="fas fa-exclamation-triangle"></i>

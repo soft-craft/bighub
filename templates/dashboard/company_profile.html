@@ -134,7 +134,7 @@
                                                             </tbody>
                                                         </table>
                                                     </form>
-                                                    <a href="" class="btn btn-primary">Edit</a>
+                                                    <a href="{% url 'edit_company_info' %}" class="btn btn-primary">Edit</a>
                                                 </div>
                                             </div>
                                             <!-- <div class="card">
@@ -262,21 +262,65 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <table class="table">
+                                                            <table class="table">
                                                             <tbody>
-                                                                {% for field in company_form %}
                                                                 <tr>
-                                                                    <td valign="middle">{{field.label}} <span
-                                                                            class="text-danger">*</span></td>
-                                                                    <td>{{field}}</td>
+                                                                    <td valign="middle">Company Name <span
+                                                                            class="text-danger"></span></td>
+                                                                    <td><input type="text" name=""
+                                                                            class="form-control shadow-none"
+                                                                            value="{{current_supplier.company_name}}" readonly></td>
                                                                 </tr>
-                                                                {% endfor %}
+                                                                <tr>
+                                                                    <td valign="middle">
+                                                                        <label for="my-input">Year of Establishment</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input id="my-input"
+                                                                            class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.establishment_year}}" readonly>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="middle">
+                                                                        <label for="my-input">CEO Name</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input id="my-input"
+                                                                            class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.ceo_name}}" readonly>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="middle">
+                                                                        <label for="my-input">Email Address</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input id="my-input"
+                                                                            class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.email}}" name="" readonly>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="middle">
+                                                                        <label for="my-input">Website</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input id="my-input"
+                                                                            class="form-control shadow-none"
+                                                                            type="email"
+                                                                            value="{{current_supplier.website}}" readonly>
+                                                                    </td>
+                                                                </tr>
                                                             </tbody>
+                                                        </table>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="text-start w-100">
-                                                    <button type="submit" class="btn btn-success w-50"><i
-                                                            class="fas fa-plus-square"></i> Save</button>
+                                                    <a href="{% url 'edit_business_profile' %}" class="btn btn-success w-50">
+                                                        <!-- <i class="fas fa-plus-square"></i>  -->
+                                                        Edit</a>
                                                 </div>
                                             </form>
 
@@ -295,30 +339,30 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    PIN Code <span class="text-danger">*</span>
+                                                                    PIN Code <span class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.pin_code}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    State <span class="text-danger">*</span>
+                                                                    State <span class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.state}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
                                                                     Address (Building Nofloor) <span
-                                                                        class="text-danger">*</span>
+                                                                        class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.building_number}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -326,8 +370,8 @@
                                                                     Locality
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.locality}}" readonly>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -336,30 +380,30 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    City <span class="text-danger">*</span>
+                                                                    City <span class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.city}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    Country <span class="text-danger">*</span>
+                                                                    Country <span class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.country}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
                                                                     Address (Area/ Street) <span
-                                                                        class="text-danger">*</span>
+                                                                        class="text-danger"></span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.street}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -367,16 +411,17 @@
                                                                     Landmark
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.landmark}}" readonly>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="text-start w-100">
-                                                    <button type="submit" class="btn btn-success w-50"><i
-                                                            class="fas fa-plus-square"></i> Save</button>
+                                                    <a href="{% url 'edit_business_profile' %}" class="btn btn-success w-50">
+                                                        <!-- <i class="fas fa-plus-square"></i>  -->
+                                                        Edit</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -401,8 +446,8 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.exim}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr class="col-md-6">
@@ -414,8 +459,8 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.pan}}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr class="col-md-6">
@@ -427,16 +472,17 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name=""
-                                                                        class="form-control shadow-none" id="">
+                                                                    <input id="my-input" class="form-control shadow-none" type="text"
+                                                                            value="{{current_supplier.vat}}" readonly>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="text-start w-100">
-                                                    <button type="submit" class="btn btn-success w-50"><i
-                                                            class="fas fa-plus-square"></i> Save</button>
+                                                    <a href="{% url 'edit_business_profile' %}" class="btn btn-success w-50">
+                                                        <!-- <i class="fas fa-plus-square"></i>  -->
+                                                        Edit</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -666,7 +712,7 @@
                                                 </div>
                                                 <div class="text-start w-100">
                                                     <button type="submit" class="btn btn-success w-50"><i
-                                                            class="fas fa-plus-square"></i> Save</button>
+                                                        class="fas fa-plus-square"></i> Save</button>
                                                 </div>
                                             </form>
                                         </div>

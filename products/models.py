@@ -24,7 +24,7 @@ class Products(models.Model):
 
     image = models.ImageField(upload_to=get_image_path, default='default.jpg', blank=True)
 
-    supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     price = models.PositiveIntegerField(null=False, blank=False)
     minimum_order_quantity = models.CharField(max_length=250)
     featured = models.BooleanField(default=False)

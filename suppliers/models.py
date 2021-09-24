@@ -19,15 +19,29 @@ STATES = (
 class Supplier(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    phone_number = models.PositiveIntegerField()
+    verified = models.BooleanField(default=False)
+
+    company_name = models.CharField(max_length=200)
+    establishment_year = models.CharField(max_length=10)
+    ceo_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=150)
+    website = models.CharField(max_length=150)
+
+    pin_code = models.CharField(max_length=15)
     state = models.CharField(max_length=50,choices=STATES)
     city = models.CharField(max_length=20)
     street = models.CharField(max_length=100)
-    phone_number = models.PositiveIntegerField()
+    building_number = models.CharField(max_length=10, null=True, blank=True)
+    locality = models.CharField(max_length=30, null=True, blank=True)
+    landmark = models.CharField(max_length=50, null=True, blank=True)
 
-    verified = models.BooleanField(default=False)
+    exim = models.CharField(max_length=20, null=True, blank=True)
+    pan = models.CharField(max_length=20, null=True, blank=True)
+    vat = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.company_name
 
     
 class Company(models.Model):
