@@ -70,12 +70,15 @@
                                     <li><a class="dropdown-item" href="#">Automobiles Two Wheelers</a></li>
                                 </ul>
                             </li-->
+                            {% if request.user.supplier %}
+                            {% else %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{% url 'register_supplier' %}">
                                     <i class="fab fa-sellcast"></i> Become a
                                     Seller
                                 </a>
                             </li>
+                            {% endif %}
                             <li class="nav-item">
 
                                 <!-- Button trigger modal -->

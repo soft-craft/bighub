@@ -318,6 +318,7 @@ def edit(request):
                    'profile_form': profile_form})
 
 
+@login_required
 def register_retailer(request):
     current_user = request.user
 
@@ -344,6 +345,7 @@ def register_retailer(request):
     return render(request,'account/get_verified_retailer.html',{'retailer_form':retailer_form})
 
 
+@login_required
 def register_supplier(request):
     current_user = request.user
 
