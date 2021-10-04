@@ -39,17 +39,17 @@
                             </div>
                             <div class="text-center">
                                 <p class="text-muted mb-1">For more details on products</p>
-                                <button type="button" class="btn btn-outline-primary btn-sm w-50"
-                                    data-bs-toggle="modal" data-bs-target="#contact-suppliers">
-                                    Contact Suppliers
-                                </button>
-                                {% if request.user.profile.account_type == 'Retailer' %}
+                                {% if request.user.is_authenticated %}
                                 <button type="button" class="btn btn-primary btn-sm w-50"
                                     data-bs-toggle="modal" data-bs-target="#get-best-price">
                                     Get Best Price
                                 </button>
+                                <p></p>
                                 {% endif %}
-
+                                <button type="button" class="btn btn-outline-primary btn-sm w-50"
+                                    data-bs-toggle="modal" data-bs-target="#contact-suppliers">
+                                    Contact Suppliers
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                 <!-- Detailed End -->
 
                 <!-- More Seller Product Start -->
-                <div class="py-5">
+                <!-- <div class="py-5">
                     <h1 class="fs-4">MORE FROM THIS SELLER</h1>
                     <div class="row">
                         <div class="owl-carousel owl-theme">
@@ -219,7 +219,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- More Seller Product End -->
 
                 <!-- Company Detailed Start -->
