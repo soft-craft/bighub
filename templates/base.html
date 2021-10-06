@@ -148,7 +148,7 @@
                     <div class="modal-body py-0">
                         <ul class="list-group list-group-flush">
                             
-                            {% if request.user.profile.account_type == 'Supplier' %}
+                            {% if request.user.profile.account_type == 'Supplier' or request.user.supplier %}
                             <li class="list-group-item">
                                 <a href="{% url 'dashboard' %}" class="text-decoration-none">
                                     <i class="fas fa-bullhorn"></i><span class="ms-2">My Seller Dashboard</span>
@@ -181,8 +181,8 @@
                             </li> -->
                             {% if request.user.is_authenticated %}
                             <li class="list-group-item">
-                                <a href="{% url "dashboard" %}" class="text-decoration-none">
-                                    <i class="fas fa-tasks"></i><span class="ms-2">Dashboard</span>
+                                <a href="{% url "edit" %}" class="text-decoration-none">
+                                    <i class="fas fa-tasks"></i><span class="ms-2">Edit Profile</span>
                                 </a>
                             </li>
                             <li class="list-group-item">
